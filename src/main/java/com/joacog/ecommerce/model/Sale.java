@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 public class Sale {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Long id;
     private LocalDate saleDate;
     @OneToMany(mappedBy = "sale")

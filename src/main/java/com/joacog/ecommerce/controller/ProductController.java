@@ -5,15 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+//Annotation para unificar URLS
+@RequestMapping("/product")
 public class ProductController {
 
     private final IProductService productService;
     /*Inyección de dependencias a través del constructor (constructor injection)
-      se utiliza la annotation @Autowired ya que de esta manera se especifica
-      el constructor que se va a utilizar para la inyeccion de dependencias*/
+      se utiliza la annotation @Autowired ya que de esta manera se específica
+      el constructor que se va a utilizar para la inyección de dependencias*/
     @Autowired
     public ProductController(IProductService productService) {
         this.productService = productService;
@@ -21,27 +24,27 @@ public class ProductController {
 
     //CRUD BÁSICO
 
-    @GetMapping("/get/product-by-id/{id}")
+    @GetMapping("/get/{id}")
     public Product getProductById(@PathVariable Long id){
         return productService.getProductById(id);
     }
 
-    @GetMapping("/get/products")
+    @GetMapping("/get")
     public List<Product> getProducts (){
         return productService.getProducts();
     }
-    @PostMapping("/create/product")
+    @PostMapping("/create")
     public void postProduct(@RequestBody Product product){
         productService.postProduct(product);
     }
-    @DeleteMapping("/delete/product-by-id/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteProductById(@PathVariable Long id){
         productService.deleteProductById(id);
     }
 
-    @PutMapping("/update-complete/product")
-    public void updateProduct(@RequestBody Product product){
-        productService.updateProduct(product);
+    @PutMapping("/update-complete/{id}")
+    public Product updateProduct(@PathVariable Long id,@RequestBody Product product){
+        return productService.updateProduct(product);
     }
 
     //Probando respuesta personalizada con ResponseEntity
@@ -50,10 +53,10 @@ public class ProductController {
     }
 
     //ENDPOINTS ESPECÍFICOS
-    @GetMapping("/get/products/hardware")
+    @GetMapping("/get/hardware")
     public List<Product> getProductsHardware(){
         List<Product> list;
-        List<Product> listAux = null;
+        List<Product> listAux = new ArrayList<>();
         list = this.getProducts();
         for (Product prod : list){
             if (prod.getCategory().equalsIgnoreCase("hardware")){
@@ -61,5 +64,12 @@ public class ProductController {
             }
         }
         return listAux;
+    }
+
+    //edición de algunos aspectos particulares de la entidad
+    //de esta forma se permite actualizar campos específicos
+    @PatchMapping("/{id}")
+    public Product updateProductFields(@PathVariable Long id,@RequestBody Product productUpdates){
+        return productService.updateProductByFields(id,productUpdates);
     }
 }

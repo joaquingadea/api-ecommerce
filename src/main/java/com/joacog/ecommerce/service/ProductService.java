@@ -1,13 +1,12 @@
 package com.joacog.ecommerce.service;
-
 import com.joacog.ecommerce.model.Product;
 import com.joacog.ecommerce.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
+@Service
 public class ProductService implements IProductService{
 
     private final IProductRepository productRepository;
@@ -38,7 +37,36 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public void updateProduct(Product product) {
-        productRepository.save(product);
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product updateProductByFields(Long id, Product productUpdates) {
+
+        Optional<Product> product = productRepository.findById(id);
+
+        if (product.isPresent()){
+            if (productUpdates.getName() != null){
+                product.get().setName(productUpdates.getName()) ;
+            }
+            if (productUpdates.getPrice() != null){
+                product.get().setPrice(productUpdates.getPrice()) ;
+            }
+            if (productUpdates.getStock() != null){
+                product.get().setStock(productUpdates.getStock()); ;
+            }
+            if (productUpdates.getCategory() != null){
+                product.get().setCategory(productUpdates.getCategory()); ;
+            }
+            if (productUpdates.getProductInformation() != null){
+                product.get().setProductInformation(productUpdates.getProductInformation()); ;
+            }
+            if (productUpdates.getProductTags() != null){
+                product.get().setProductTags(productUpdates.getProductTags()); ;
+            }
+            return product.get();
+        }
+        return null;
     }
 }

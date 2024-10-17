@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 public class Administrator extends Person{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Long id;
     @OneToOne
     private User user;

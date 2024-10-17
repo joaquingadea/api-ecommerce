@@ -1,10 +1,5 @@
 package com.joacog.ecommerce.model;
-
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,11 +9,12 @@ import java.util.Set;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_sequence")
     private Long id;
     private String name;
-    private double price;
-    private int stock;
+    private Double price;
+    private Integer stock;
     private String category;
     private String productInformation;
     private List<String> productTags = new ArrayList<>();
@@ -29,7 +25,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, double price, int stock, String category, String productInformation, List<String> productTags, Set<SaleProduct> productList) {
+    public Product(Long id, String name, Double price, Integer stock, String category, String productInformation, List<String> productTags, Set<SaleProduct> productList) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -56,19 +52,19 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
