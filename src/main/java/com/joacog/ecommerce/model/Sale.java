@@ -1,9 +1,7 @@
 package com.joacog.ecommerce.model;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +10,7 @@ import java.util.Set;
 @Entity
 public class Sale {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private LocalDate saleDate;
     @OneToMany(mappedBy = "sale")

@@ -65,6 +65,7 @@ public class ProductService implements IProductService{
             if (productUpdates.getProductTags() != null){
                 product.get().setProductTags(productUpdates.getProductTags()); ;
             }
+            productRepository.save(product.get());
             return product.get();
         }
         return null;

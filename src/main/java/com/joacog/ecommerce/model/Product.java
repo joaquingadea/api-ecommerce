@@ -9,15 +9,15 @@ import java.util.Set;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
     private Double price;
     private Integer stock;
     private String category;
     private String productInformation;
-    private List<String> productTags = new ArrayList<>();
+
+    private List<String> productTags;
 
     @OneToMany(mappedBy = "product")
     private Set<SaleProduct> productList = new HashSet<>();
@@ -38,10 +38,6 @@ public class Product {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

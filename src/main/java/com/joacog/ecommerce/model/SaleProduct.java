@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 public class SaleProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "sale_id")
