@@ -41,6 +41,12 @@ public class ProductService implements IProductService{
         return productRepository.save(product);
     }
 
+    /*
+    * Verifica, en caso de que exista el producto que se quiere modificar
+    * se modifican todos los campos del producto en la base de datos con los campos
+    * actualizados que no sean nulos
+    * */
+
     @Override
     public Product updateProductByFields(Long id, Product productUpdates) {
 

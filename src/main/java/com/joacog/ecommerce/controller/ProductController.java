@@ -14,9 +14,11 @@ import java.util.List;
 public class ProductController {
 
     private final IProductService productService;
-    /*Inyección de dependencias a través del constructor (constructor injection)
-      se utiliza la annotation @Autowired ya que de esta manera se específica
-      el constructor que se va a utilizar para la inyección de dependencias*/
+    /*
+    * Inyección de dependencias a través del constructor (constructor injection)
+    * se utiliza la annotation @Autowired ya que de esta manera se específica
+    * el constructor que se va a utilizar para la inyección de dependencias
+    */
     @Autowired
     public ProductController(IProductService productService) {
         this.productService = productService;
@@ -53,21 +55,27 @@ public class ProductController {
     }
 
     //ENDPOINTS ESPECÍFICOS
+
     @GetMapping("/get/hardware")
     public List<Product> getProductsHardware(){
-        List<Product> list;
+
+        List<Product> list = this.getProducts();
         List<Product> listAux = new ArrayList<>();
-        list = this.getProducts();
+
         for (Product prod : list){
-            if (prod.getCategory().equalsIgnoreCase("hardware")){
+            if (prod.getCategory()
+                    .equalsIgnoreCase("hardware"))
+            {
                 listAux.add(prod);
             }
         }
         return listAux;
     }
 
-    //edición de algunos aspectos particulares de la entidad
-    //de esta forma se permite actualizar campos específicos
+    /*
+    * Edición de algunos aspectos particulares de la entidad
+    * de esta forma se permite actualizar campos específicos
+    */
     @PatchMapping("/{id}")
     public Product updateProductFields(@PathVariable Long id,@RequestBody Product productUpdates){
         return productService.updateProductByFields(id,productUpdates);

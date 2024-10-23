@@ -12,6 +12,8 @@ public class Customer extends Person{
     private Long id;
     @OneToOne
     private User user;
+    @OneToMany(mappedBy = "customer")
+    Sale sale;
 
     public Customer(String name, String lastName, String dni, String phone, Long id, User user) {
         super(name, lastName, dni, phone);

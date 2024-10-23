@@ -13,6 +13,12 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private LocalDate saleDate;
+
+    @ManyToOne
+    Customer customer;
+
+
+
     @OneToMany(mappedBy = "sale")
     private Set<SaleProduct> productList = new HashSet<>();
 

@@ -1,6 +1,5 @@
 package com.joacog.ecommerce.model;
 import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,9 +7,12 @@ import java.util.Set;
 
 @Entity
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Basic
     private String name;
     private Double price;
     private Integer stock;
