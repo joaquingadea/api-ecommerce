@@ -1,22 +1,27 @@
 package com.joacog.ecommerce.controller;
-
 import com.joacog.ecommerce.model.Product;
 import com.joacog.ecommerce.service.ISaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 
+@RestController
+@RequestMapping("/sale")
 public class SaleController {
 
-    private ISaleService saleService;
+    private final ISaleService saleService;
     @Autowired
     public SaleController(ISaleService saleService) {
         this.saleService = saleService;
     }
 
-    public String makeSale(@RequestBody Set<Product> productList){
+
+    @PostMapping("/make")
+    public String makeSale(@RequestBody List<Product> productList){
         return saleService.makeSale(productList);
     }
 

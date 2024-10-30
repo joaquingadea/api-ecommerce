@@ -1,9 +1,8 @@
 package com.joacog.ecommerce.model;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -14,24 +13,22 @@ public class Sale {
     private Long id;
     private LocalDate saleDate;
 
+
     @ManyToOne
-    Customer customer;
+    private Customer customer;
 
-    private Set<Product> products;
-
-
-    @OneToMany(mappedBy = "sale")
-    private Set<SaleProduct> productList = new HashSet<>();
+    @OneToMany(mappedBy = "saleSP")
+    List<SaleProduct> productList;
 
 
     public Sale() {
     }
 
-    public Sale(Long id, LocalDate saleDate, Customer customer, Set<Product> products, Set<SaleProduct> productList) {
+    public Sale(Long id, LocalDate saleDate, Customer customer, List<SaleProduct> productList) {
         this.id = id;
         this.saleDate = saleDate;
+
         this.customer = customer;
-        this.products = products;
         this.productList = productList;
     }
 
@@ -51,6 +48,8 @@ public class Sale {
         this.saleDate = saleDate;
     }
 
+
+
     public Customer getCustomer() {
         return customer;
     }
@@ -59,19 +58,11 @@ public class Sale {
         this.customer = customer;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
-    public Set<SaleProduct> getProductList() {
+    public List<SaleProduct> getProductList() {
         return productList;
     }
 
-    public void setProductList(Set<SaleProduct> productList) {
+    public void setProductList(List<SaleProduct> productList) {
         this.productList = productList;
     }
 }

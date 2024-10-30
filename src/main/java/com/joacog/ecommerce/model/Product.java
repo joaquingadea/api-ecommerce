@@ -1,8 +1,7 @@
 package com.joacog.ecommerce.model;
 import jakarta.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Entity
@@ -12,22 +11,23 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Basic
     private String name;
     private Double price;
     private Integer stock;
     private String category;
     private String productInformation;
-
     private List<String> productTags;
 
-    @OneToMany(mappedBy = "product")
-    private Set<SaleProduct> productList = new HashSet<>();
+
+    @OneToMany(mappedBy = "productSP")
+    private List<SaleProduct> productList;
 
     public Product() {
     }
 
-    public Product(Long id, String name, Double price, Integer stock, String category, String productInformation, List<String> productTags, Set<SaleProduct> productList) {
+    public Product(Long id, String name, Double price, Integer stock, String category,
+                   String productInformation, List<String> productTags,
+                   List<SaleProduct> productList) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -40,6 +40,10 @@ public class Product {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -90,11 +94,11 @@ public class Product {
         this.productTags = productTags;
     }
 
-    public Set<SaleProduct> getProductList() {
+    public List<SaleProduct> getProductList() {
         return productList;
     }
 
-    public void setProductList(Set<SaleProduct> productList) {
+    public void setProductList(List<SaleProduct> productList) {
         this.productList = productList;
     }
 }

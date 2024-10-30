@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter @Setter
 @Entity
 public class Customer{
@@ -20,7 +22,7 @@ public class Customer{
     private User user;
 
     @OneToMany(mappedBy = "customer")
-    Sale sale;
+    private List<Sale> sales;
 
 
 
