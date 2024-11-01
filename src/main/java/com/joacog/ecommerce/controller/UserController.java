@@ -1,52 +1,51 @@
 package com.joacog.ecommerce.controller;
+
+import com.joacog.ecommerce.model.User;
 import com.joacog.ecommerce.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import jakarta.servlet.http.HttpSession;
-import java.util.Map;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/user")
 public class UserController {
 
     private final IUserService userService;
 
+    @Autowired
     public UserController(IUserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-        public String register(@RequestParam String username, @RequestParam String password){
+    @GetMapping("/get")
+    public List<User> getUsers(){
+        return userService.getUsers();
+    }
 
-            return null;
-        }
+    @GetMapping("/get/{id}")
+    public User getUserById(@PathVariable Long id){
+        return userService.getUserById(id);
+    }
 
-        @PostMapping("/login")
-        public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
-            // Simulación de autenticación. En producción, validar contra base de datos.
-            if ("user".equals(username) && "password".equals(password)) {
-                // Guardar información del usuario en la sesión
-                session.setAttribute("username", username);
-                return "Usuario autenticado con éxito";
-            } else {
-                return "Credenciales inválidas";
-            }
-        }
+    @PostMapping("/create")
+    public void createUser(@RequestParam User user){
+        userService.createUser(user);
+    }
 
-        @GetMapping("/logout")
-        public String logout(HttpSession session) {
-            // Invalidar la sesión
-            session.invalidate();
-            return "Sesión cerrada";
-        }
+    @DeleteMapping("/delete/{id}")
+    public void deleteUserById(@PathVariable Long id){
+        userService.deleteUserById(id);
+    }
 
-        @GetMapping("/userinfo")
-        public Map<String, Object> userInfo(HttpSession session) {
-            // Verificar si el usuario tiene una sesión activa
-            String username = (String) session.getAttribute("username");
-            if (username != null) {
-                return Map.of("username", username, "sessionId", session.getId());
-            } else {
-                return Map.of("message", "No hay sesión activa");
-            }
-        }
+    @PutMapping("/c/edit/{id}")
+    public User editCompleteUser(@PathVariable Long id, @RequestParam User user){
+        return userService.editCompleteUser(id,user);
+    }
+
+    @PatchMapping("/edit/{id}")
+    public User patchUser(@PathVariable Long id){
+        //TERMINAR
+        return  null;
+    }
 }
