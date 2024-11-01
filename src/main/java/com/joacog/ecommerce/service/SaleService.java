@@ -4,10 +4,8 @@ import com.joacog.ecommerce.model.Product;
 import com.joacog.ecommerce.model.Sale;
 import com.joacog.ecommerce.repository.ISaleRepository;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Service
 
@@ -19,6 +17,9 @@ public class SaleService implements ISaleService{
         this.saleRepository = saleRepository;
     }
 
+
+    //ACA DEBERIA JUNTAR TODOS LOS DATOS EN LA VENTA
+
     @Override
     public String makeSale(List<Product> productList) {
 
@@ -28,5 +29,10 @@ public class SaleService implements ISaleService{
         saleRepository.save(newSale);
         return "Venta realizada";
 
+    }
+
+    @Override
+    public List<Sale> getSaleList() {
+        return saleRepository.findAll();
     }
 }

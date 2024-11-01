@@ -1,9 +1,7 @@
 package com.joacog.ecommerce.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -12,22 +10,22 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private LocalDate saleDate;
-
+    private Double totalSale;
 
     @ManyToOne
     private Customer customer;
 
     @OneToMany(mappedBy = "saleSP")
-    List<SaleProduct> productList;
+    private List<SaleProduct> productList;
 
 
     public Sale() {
     }
 
-    public Sale(Long id, LocalDate saleDate, Customer customer, List<SaleProduct> productList) {
+    public Sale(Long id, LocalDate saleDate, Double totalSale, Customer customer, List<SaleProduct> productList) {
         this.id = id;
         this.saleDate = saleDate;
-
+        this.totalSale = totalSale;
         this.customer = customer;
         this.productList = productList;
     }
@@ -48,7 +46,13 @@ public class Sale {
         this.saleDate = saleDate;
     }
 
+    public Double getTotalSale() {
+        return totalSale;
+    }
 
+    public void setTotalSale(Double totalSale) {
+        this.totalSale = totalSale;
+    }
 
     public Customer getCustomer() {
         return customer;

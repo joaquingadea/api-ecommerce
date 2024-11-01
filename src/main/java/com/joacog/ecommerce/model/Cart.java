@@ -6,12 +6,14 @@ import java.util.List;
 public class Cart {
 
     private List<SaleProduct> items = new ArrayList<>();
+    private Double totalSale;
 
     public Cart() {
     }
 
-    public Cart(List<SaleProduct> items) {
+    public Cart(List<SaleProduct> items, Double totalSale) {
         this.items = items;
+        this.totalSale = totalSale;
     }
 
     //Añadir un producto a la vez
@@ -23,11 +25,21 @@ public class Cart {
         items.add(saleProduct);
     }
 
+
+
     public List<SaleProduct> getItems() {
         return items;
     }
 
     public void setItems(List<SaleProduct> items) {
         this.items = items;
+    }
+
+    public Double getTotalSale() {
+        return totalSale;
+    }
+
+    public void setTotalSale(Double totalSale) {
+        this.totalSale = totalSale;
     }
 }
